@@ -25,19 +25,29 @@ def close_db(exception=None):
     if db is not None:
         db.close()
 
+
 def init_db():
     INSTANCE_DIR.mkdir(parents=True, exist_ok=True)
 
-    db = sqlite3.connect(DATABASE)
+    schema_path = BASE_DIR / "DataBase" / "schema.sql"
 
+    db = sqlite3.connect(DATABASE)
     try:
-        schema_path = BASE_DIR / 'DataBase'/ 'schema.sql'
-        db.executescript(
-            schema_path.read_text(encoding='utf-8')
-        )
-        db.commit()
+        # Chỉ khởi tạo bảng nếu chưa tồn tại
+        table = db.execute("""
+            SELECT name
+            FROM sqlite_master
+            WHERE type = 'table' AND name = 'tasks'
+        """).fetchone()
+
+        if table is None:
+            db.executescript(
+                schema_path.read_text(encoding="utf-8")
+            )
+            db.commit()
     finally:
         db.close()
+
 
 @app.route('/')
 def index():
@@ -149,7 +159,6 @@ def delete_task(task_id):
 
     return redirect(url_for("index"))
 
-
+init_db()
 if __name__ == "__main__":
-    init_db()
     app.run(debug=True)
