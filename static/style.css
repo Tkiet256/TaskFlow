@@ -60,18 +60,20 @@ a { color: inherit; text-decoration: none; }
 
 .topbar {
     display: flex;
+    flex-wrap: wrap;
     flex-shrink: 0;
     justify-content: space-between;
     align-items: center;
 
     width: 100%;
     min-height: 60px;
+    min-width: 0;
     padding: 22px 24px;
     z-index: 20;
     border-radius: 20px 0 0 0;
 
     background-color: #dedede;
-    gap: 16px;
+    gap: 12px;
 }
 
 .greeting {
@@ -85,7 +87,9 @@ a { color: inherit; text-decoration: none; }
 .topbar-actions {
     display: flex;
     align-items: center;
-    gap: 10px;
+    flex-wrap: wrap;
+    min-width: 0;
+    gap: 8px;
 }
 
 .date-controls,
@@ -1064,4 +1068,207 @@ a { color: inherit; text-decoration: none; }
 .events-card h3,
 .progress-card h3 {
     font-size: 18px;
+}
+
+/* TABLET AND SMALL LAPTOP */
+@media (max-width: 1100px) {
+    .app-shell {
+        grid-template-columns: 210px minmax(0, 1fr);
+    }
+
+    .sidebar {
+        padding: 18px 10px;
+    }
+
+    .topbar {
+        padding: 16px;
+    }
+
+    .greeting {
+        font-size: clamp(21px, 2.5vw, 30px);
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+    .topbar-actions {
+        gap: 8px;
+    }
+
+    #month-view {
+        padding: 12px;
+    }
+
+    .month-weekdays,
+    .month-grid {
+        column-gap: 8px;
+    }
+
+    .month-grid {
+        gap: 8px;
+        grid-auto-rows: minmax(82px, auto);
+    }
+
+    .month-day {
+        min-height: 82px;
+        padding: 6px;
+    }
+}
+
+/* TABLET AND MOBILE */
+@media (max-width: 820px) {
+    .app-shell {
+        grid-template-columns: minmax(0, 1fr);
+        width: 100%;
+        border-radius: 0;
+    }
+
+    .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        max-height: none;
+        overflow: visible;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        padding: 14px;
+    }
+
+    .brand,
+    .sidebar-profile {
+        grid-column: 1 / -1;
+    }
+
+    .pages-card,
+    .events-card,
+    .progress-card {
+        min-width: 0;
+        margin-top: 0;
+        padding: 12px;
+    }
+
+    .main-content {
+        height: auto;
+        min-height: 70vh;
+        overflow: visible;
+    }
+
+    .topbar {
+        align-items: flex-start;
+        border-radius: 0;
+        padding: 14px;
+    }
+
+    .topbar-actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .calendar {
+        min-height: 70vh;
+        overflow: hidden;
+        border-radius: 0;
+    }
+
+    .calendar-scroll {
+        overflow-x: auto;
+    }
+
+    .calendar-body {
+        min-width: 700px;
+    }
+
+    #month-view {
+        overflow-x: auto;
+        padding: 12px;
+    }
+
+    .month-weekdays,
+    .month-grid {
+        min-width: 560px;
+        column-gap: 8px;
+    }
+
+    .month-grid {
+        gap: 8px;
+        grid-auto-rows: minmax(78px, auto);
+    }
+
+    .month-day {
+        min-height: 78px;
+        padding: 6px;
+    }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 520px) {
+    .sidebar {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 12px;
+    }
+
+    .brand,
+    .sidebar-profile {
+        grid-column: auto;
+    }
+
+    .brand {
+        font-size: 23px;
+    }
+
+    .topbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .greeting {
+        margin: 0;
+        font-size: 24px;
+        white-space: normal;
+    }
+
+    .topbar-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    .date-controls,
+    .view-controls {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .date-controls button,
+    .view-controls button {
+        flex: 1;
+    }
+
+    .topbar .add-task-btn {
+        width: 100%;
+        min-height: 38px;
+    }
+
+    .calendar {
+        min-height: 65vh;
+    }
+
+    #month-title {
+        font-size: 24px;
+    }
+
+    .month-weekdays,
+    .month-grid {
+        min-width: 525px;
+    }
+
+    .task-modal {
+        padding: 12px;
+    }
+
+    .task-form {
+        padding: 18px;
+    }
 }
